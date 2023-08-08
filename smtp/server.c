@@ -4,14 +4,11 @@
 #include <netinet/in.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#define port 8080
 #define BUF_SIZE 256
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s <port>\n", argv[0]);
-        exit(1);
-    }
+int main() {
+    
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd == -1) {
@@ -23,7 +20,7 @@ int main(int argc, char *argv[]) {
     memset(&server, 0, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(atoi(argv[1]));
+    server.sin_port = htons(port);
 
     if (bind(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
         printf("Error in bind()!\n");
